@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Use Case Aanvraagformulier | HDI</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Reset and base styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* Header styles */
+        .main-header {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 1rem 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 0 2rem;
+        }
+
+        .hdi-logo {
+            height: 50px;
+            width: auto;
+            object-fit: contain;
+        }
+
+        .header-title {
+            color: #2c3e50;
+            font-weight: 700;
+            font-size: 1.8rem;
+        }
+
+        /* Main content */
+        .page-wrapper {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+
+        .form-container {
+            background: white;
+            border-radius: 16px;
+            padding: 2.5rem;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        /* Form intro section */
+        .form-intro {
+            text-align: center;
+            margin-bottom: 2rem;
+            padding-bottom: 2rem;
+            border-bottom: 2px solid #f0f0f0;
+        }
+
+        .meerkat-avatar {
+            width: 120px;
+            height: 120px;
+            object-fit: contain;
+            margin: 0 auto 1rem;
+            display: block;
+            filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.1));
+        }
+
+        .use-case-form h2 {
+            color: #2c3e50;
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .form-description {
+            color: #666;
+            text-align: center;
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
+        }
+
+        /* Form styles */
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            color: #2c3e50;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            font-size: 1rem;
+        }
+
+        .form-input,
+        .form-textarea,
+        .form-select {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 2px solid #e1e5e9;
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 1rem;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+            background: #fafbfc;
+        }
+
+        .form-input:focus,
+        .form-textarea:focus,
+        .form-select:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+            background: white;
+        }
+
+        .form-textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .field-hint {
+            color: #666;
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+            font-style: italic;
+            line-height: 1.4;
+        }
+
+        /* Form actions */
+        .form-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid #e1e5e9;
+        }
+
+        .btn-primary,
+        .btn-secondary {
+            padding: 0.75rem 2rem;
+            border: none;
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: none;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        .btn-secondary {
+            background: #f8f9fa;
+            color: #666;
+            border: 2px solid #e1e5e9;
+        }
+
+        .btn-secondary:hover {
+            background: #e9ecef;
+            border-color: #adb5bd;
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .header-content {
+                padding: 0 1rem;
+            }
+
+            .hdi-logo {
+                height: 40px;
+            }
+
+            .header-title {
+                font-size: 1.4rem;
+            }
+
+            .page-wrapper {
+                margin: 1rem auto;
+                padding: 0 1rem;
+            }
+
+            .form-container {
+                padding: 1.5rem;
+            }
+
+            .meerkat-avatar {
+                width: 100px;
+                height: 100px;
+            }
+
+            .use-case-form h2 {
+                font-size: 1.6rem;
+            }
+
+            .form-actions {
+                flex-direction: column;
+            }
+
+            .btn-primary,
+            .btn-secondary {
+                width: 100%;
+            }
+        }
+
+        /* Required field indicator */
+        .form-label:after {
+            content: " ";
+        }
+
+        .form-label:has(+ .form-input[required]):after,
+        .form-label:has(+ .form-textarea[required]):after,
+        .form-label:has(+ .form-select[required]):after {
+            content: " *";
+            color: #e74c3c;
+        }
+    </style>
+</head>
+<body>
+    <header class="main-header">
+        <div class="header-content">
+            <img src="hdi_logo.png" alt="HDI Logo" class="hdi-logo">
+            <h1 class="header-title">AI Use Case Aanvraagformulier</h1>
+        </div>
+    </header>
+
+    <main class="page-wrapper">
+        <div class="form-container">
+            <div class="form-intro">
+                <img src="meerkat_scientist.png" alt="Meerkat Scientist" class="meerkat-avatar">
+                <h2>AI Use Case Aanvraag</h2>
+                <p class="form-description">Vul dit formulier in om een nieuwe AI use case aan te vragen. Alle velden zijn verplicht tenzij anders aangegeven.</p>
+            </div>
+            <form id="useCaseForm" class="use-case-form">
+                
+                <div class="form-group">
+                    <label for="useCaseName" class="form-label">Use Case Naam *</label>
+                    <input type="text" id="useCaseName" name="useCaseName" class="form-input" required>
+                    <p class="field-hint">Korte, duidelijke titel (max. 1 zin) - Helpt om aanvragen snel te herkennen en terug te vinden.</p>
+                </div>
+
+                <div class="form-group">
+                    <label for="requesterName" class="form-label">Aanvrager Naam *</label>
+                    <input type="text" id="requesterName" name="requesterName" class="form-input" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="requesterContact" class="form-label">Contactgegevens Aanvrager *</label>
+                    <input type="email" id="requesterContact" name="requesterContact" class="form-input" required>
+                    <p class="field-hint">Zodat er altijd iemand bereikbaar is voor verduidelijking of aanvullende informatie.</p>
+                </div>
+
+                <div class="form-group">
+                    <label for="ownerSponsor" class="form-label">Use Case Owner / Sponsor *</label>
+                    <input type="text" id="ownerSponsor" name="ownerSponsor" class="form-input" required>
+                    <p class="field-hint">Geeft eigenaarschap: iemand die het initiatief wil dragen binnen de business en tijd/capaciteit heeft om te ondersteunen.</p>
+                </div>
+
+                <div class="form-group">
+                    <label for="department" class="form-label">Afdeling / Domein *</label>
+                    <input type="text" id="department" name="department" class="form-input" required>
+                    <p class="field-hint">Plaatst de aanvraag in context: welke business unit profiteert? Belangrijk voor prioritering en rapportage.</p>
+                </div>
+
+                <div class="form-group">
+                    <label for="problemStatement" class="form-label">Probleemstelling *</label>
+                    <textarea id="problemStatement" name="problemStatement" class="form-textarea" rows="4" required></textarea>
+                    <p class="field-hint">Het waarom: zonder duidelijk probleem geen zinvol AI-idee. (Tip: beschrijf de huidige situatie, knelpunten en impact.)</p>
+                </div>
+
+                <div class="form-group">
+                    <label for="proposedSolution" class="form-label">Voorgestelde Oplossing</label>
+                    <textarea id="proposedSolution" name="proposedSolution" class="form-textarea" rows="4"></textarea>
+                    <p class="field-hint">Hoe ziet de aanvrager het zelf? Dit kan variëren van heel concreet tot blanco – beide zijn oké. (Beschrijf indien mogelijk de gewenste nieuwe flow of aanpak.)</p>
+                </div>
+
+                <div class="form-group">
+                    <label for="dataRequirements" class="form-label">Benodigde Data / Bronnen / Systemen / Integraties *</label>
+                    <textarea id="dataRequirements" name="dataRequirements" class="form-textarea" rows="4" required></textarea>
+                    <p class="field-hint">AI draait op data: is de benodigde data beschikbaar en bruikbaar? Soort data (gestructureerd, ongestructureerd, intern, extern)? Welke interne systemen of tools moeten gekoppeld worden? (Belangrijk voor IT-haalbaarheid.)</p>
+                </div>
+
+                <div class="form-group">
+                    <label for="expectedBenefits" class="form-label">Verwachte Voordelen / Waarde *</label>
+                    <textarea id="expectedBenefits" name="expectedBenefits" class="form-textarea" rows="4" required></textarea>
+                    <p class="field-hint">Mini-businesscase: waarom is dit de moeite waard? Efficiëntie, kostenbesparing, klanttevredenheid, risicoreductie, etc. Impact: hoeveel mensen profiteren? (Graag in woorden of grove cijfers.)</p>
+                </div>
+
+                <div class="form-group">
+                    <label for="priority" class="form-label">Urgentie / Prioriteit *</label>
+                    <select id="priority" name="priority" class="form-select" required>
+                        <option value="">Selecteer prioriteit...</option>
+                        <option value="laag">Laag</option>
+                        <option value="midden">Midden</option>
+                        <option value="hoog">Hoog</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="deadline" class="form-label">Gewenste Termijn / Deadline</label>
+                    <input type="date" id="deadline" name="deadline" class="form-input">
+                    <p class="field-hint">Is er een harde deadline of gewenste termijn?</p>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn-primary">Aanvraag Indienen</button>
+                    <button type="reset" class="btn-secondary">Formulier Wissen</button>
+                </div>
+            </form>
+        </div>
+    </main>
+
+    <script>
+        // Form validation and interactivity
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('useCaseForm');
+            const submitBtn = form.querySelector('.btn-primary');
+            
+            // Form submission handler
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Basic validation
+                const requiredFields = form.querySelectorAll('[required]');
+                let isValid = true;
+                
+                requiredFields.forEach(field => {
+                    if (!field.value.trim()) {
+                        field.style.borderColor = '#e74c3c';
+                        isValid = false;
+                    } else {
+                        field.style.borderColor = '#e1e5e9';
+                    }
+                });
+                
+                if (isValid) {
+                    // Show loading state
+                    submitBtn.textContent = 'Verzenden...';
+                    submitBtn.disabled = true;
+                    
+                    // Collect form data
+                    const formData = new FormData(form);
+                    const emailContent = generateEmailContent(formData);
+                    
+                    // Send email using mailto
+                    sendEmailToRemy(emailContent);
+                    
+                    // Show success message
+                    setTimeout(() => {
+                        alert('Uw aanvraag is voorbereid voor verzending! Uw e-mailclient wordt geopend om de aanvraag naar Remy te versturen.');
+                        submitBtn.textContent = 'Aanvraag Indienen';
+                        submitBtn.disabled = false;
+                    }, 1000);
+                } else {
+                    alert('Vul alle verplichte velden in.');
+                }
+            });
+            
+            // Function to generate email content from form data
+            function generateEmailContent(formData) {
+                const data = {};
+                for (let [key, value] of formData.entries()) {
+                    data[key] = value;
+                }
+                
+                const currentDate = new Date().toLocaleDateString('nl-NL');
+                
+                return {
+                    subject: `AI Use Case Aanvraag: ${data.useCaseName || 'Nieuwe Aanvraag'}`,
+                    body: `Beste Remy,
+
+Hierbij een nieuwe AI Use Case aanvraag ingediend op ${currentDate}.
+
+=== AI USE CASE AANVRAAG ===
+
+📝 Use Case Naam:
+${data.useCaseName || 'Niet ingevuld'}
+
+👤 Aanvrager:
+Naam: ${data.requesterName || 'Niet ingevuld'}
+Contact: ${data.requesterContact || 'Niet ingevuld'}
+
+🏢 Use Case Owner/Sponsor:
+${data.ownerSponsor || 'Niet ingevuld'}
+
+🏛️ Afdeling/Domein:
+${data.department || 'Niet ingevuld'}
+
+❓ Probleemstelling:
+${data.problemStatement || 'Niet ingevuld'}
+
+💡 Voorgestelde Oplossing:
+${data.proposedSolution || 'Niet ingevuld'}
+
+📊 Benodigde Data/Bronnen/Systemen:
+${data.dataRequirements || 'Niet ingevuld'}
+
+📈 Verwachte Voordelen/Waarde:
+${data.expectedBenefits || 'Niet ingevuld'}
+
+⚡ Urgentie/Prioriteit:
+${data.priority || 'Niet ingevuld'}
+
+📅 Gewenste Deadline:
+${data.deadline || 'Niet ingevuld'}
+
+===========================
+
+Deze aanvraag is automatisch gegenereerd via het AI Use Case aanvraagformulier.
+
+Met vriendelijke groet,
+${data.requesterName || 'Onbekende aanvrager'}`
+                };
+            }
+            
+            // Function to send email using mailto
+            function sendEmailToRemy(emailContent) {
+                const recipientEmail = 'remy.vanwijk@nl.hdi.global';
+                const subject = encodeURIComponent(emailContent.subject);
+                const body = encodeURIComponent(emailContent.body);
+                
+                const mailtoLink = `mailto:${recipientEmail}?subject=${subject}&body=${body}`;
+                
+                // Open email client
+                window.location.href = mailtoLink;
+            }
+            
+            // Real-time validation feedback
+            const inputs = form.querySelectorAll('input, textarea, select');
+            inputs.forEach(input => {
+                input.addEventListener('blur', function() {
+                    if (this.hasAttribute('required') && !this.value.trim()) {
+                        this.style.borderColor = '#e74c3c';
+                    } else {
+                        this.style.borderColor = '#e1e5e9';
+                    }
+                });
+                
+                input.addEventListener('focus', function() {
+                    this.style.borderColor = '#667eea';
+                });
+            });
+            
+            // Character counter for textareas
+            const textareas = form.querySelectorAll('textarea');
+            textareas.forEach(textarea => {
+                const maxLength = 1000;
+                textarea.setAttribute('maxlength', maxLength);
+                
+                const counter = document.createElement('div');
+                counter.className = 'char-counter';
+                counter.style.cssText = 'text-align: right; font-size: 0.8rem; color: #666; margin-top: 0.25rem;';
+                counter.textContent = `0/${maxLength}`;
+                
+                textarea.parentNode.appendChild(counter);
+                
+                textarea.addEventListener('input', function() {
+                    const length = this.value.length;
+                    counter.textContent = `${length}/${maxLength}`;
+                    
+                    if (length > maxLength * 0.9) {
+                        counter.style.color = '#e74c3c';
+                    } else {
+                        counter.style.color = '#666';
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
